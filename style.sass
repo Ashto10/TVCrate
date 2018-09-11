@@ -10,44 +10,60 @@ $bg-dark-color: #494949
 $bg-light-color: #FCF9F9
 $attn-color: #FFA528
 
-=center-max-width
-  width: 100%
-  max-width: 960px
-  margin: 0 auto
+$navbarHeight: 50px
+
+/* Common */
 
 body
   background: $bg-light-color
   font-family: $paragraph-font
-
-section
-  padding: 50px 0
-  +center-max-width
-
-.inner-section
-  width: 95%
-  margin: 0 2.5%
-
-h1, h2, h3, h4, h5, h6 
+  
+h1, h2
   font-family: $header-font
-
-h1 
+  
+h1
   text-align: center
 
-.trademark 
-  font-family: $paragraph-font
-
-a 
+ul
+  margin: 0
+  padding: 0
+  
+a
   text-decoration: none
   color: $attn-color
+  
+.container
+  width: 100%
+  max-width: 960px
+  margin: 0 auto
+  
+.product-name
+  font-family: $product-font
 
-ul 
-  list-style: none
-  padding: 0
-
-.alt-bg 
-  background: $bg-dark-color
-  color: $bg-light-color
-
+section
+  padding: $navbarHeight 0
+  
+.slide-container
+  height: 100vh
+  position: relative
+  overflow: hidden
+  
+.sticky-slide
+  padding-bottom: 200px
+  
+.slide-content
+  position: relative
+  width: 100%
+  height: 100%
+  display: flex
+  flex-direction: column
+  align-content: center
+  justify-content: center
+  align-items: center
+  
+  & > *:first-child
+    margin-top: $navbarHeight
+  
 .btn
   background: $attn-color
   width: 100%
@@ -61,191 +77,159 @@ ul
     background: darken($attn-color, 10)
     border: 2px solid darken($attn-color, 15)
 
-.btn.btn-inline 
-  margin-left: 3px
-  width: auto
-  padding: 5px
-  
 /* Navigation */
-
-#nav-bar
-  position: fixed
-  z-index: 10
-  width: 80vw
-  padding: 0 10vw
-  height: 50px
-  background: $main-color
-  overflow: hidden
-
-#nav-list
-  +center-max-width
-  display: flex
-  align-items: center
-  justify-content: space-between
-
-#nav-bar .nav-link
-  flex: 0 1 auto
-  height: 100%
-  font-size: 0.9em
-  color: $bg-light-color
-  &:hover
-    color: $attn-color
-
-#branding 
-  position: relative
-  flex: 0.75 1 auto
-  font-size: 1em
-  
-  .nav-link 
-    display: flex
-    width: 100%
-
-.product-name 
-  font-family: $product-font
-  margin-left: 1em
-
-#header-img
-  height: 40px
-  margin-top: 5px
-  margin-left: 5px
-  margin-right: -5px
-  width: auto
-
-.expand-menu 
+.expand-menu
   display: none
-  position: absolute
-  right: 20px
-  top: 0px
-  width: 50px
-  height: 50px
-  border: none
-  background: none
-  font-size: 1.5em
   
-/* Splash */
-
-#splash 
-  max-width: 100%
-  background: $alt-color
-  background: repeating-linear-gradient(45deg, $alt-color, $alt-color 10px, lighten($alt-color,3) 10px, lighten($alt-color,3) 20px)
-  text-align: center
-
-.slide-container
-  position: relative
-  height: 100vh
+#navbar
+  position: fixed
+  background: $main-color
   width: 100%
-  overflow: hidden
-
-.slide-content 
-  position: relative
-  top: 50%
-  transform: translateY(-50%)
-  height: 100%
-  width: 100%
+  height: $navbarHeight
+  z-index: 10
+  
+  a
+    color: $bg-light-color
+    line-height: $navbarHeight    
+  
+#navbar-list
+  @extend .container
   display: flex
-  flex-direction: column
-  justify-content: center
-
-#better-way
-  &:before 
-    position: absolute
-    content: ''
-    width: 100%
-    height: 100%
-    background: url('https://whoknowsaguy.fitness/wp-content/uploads/2016/08/The-Panic-Attack-for-Beachbody-Coaches.jpg') 50%
-    background-size: cover
-    filter: grayscale(2) brightness(0.5)
-
-  & p 
-    font-family: $header-font
-    margin: 0.5em 2em
-    font-size: 1.5em
-    filter: grayscale(0)
-    color: white
-
-  & strong 
-    text-shadow: 0px 0px 2px gray
-    color: #ff0707
-    font-size: 1.5em
+  justify-content: space-around
+  
+.navbar-link
+  height: $navbarHeight
+  display: inline-block
+  font-family: $paragraph-font
+  margin-right: 2em
+  
+#branding
+  display: inline
+  flex-grow: 2
+  font-size: 1.5em
+  img
+    float: left
+    height: $navbarHeight * 0.8
+    margin: ($navbarHeight * 0.1) 0.5em
     
-.splash-img 
-  width: auto
-  height: auto
-  max-height: 40vh
-  max-width: 55vw
-  margin-bottom: 3em
+/* Splash */      
+#better-way
+  p 
+    font-family: $header-font
+    margin: 0.5em
+    font-size: 1.5em
+    color: white
+    text-align: center
+    text-shadow: 0px 0px 2px black
 
+  strong 
+    color: $main-color
+    font-size: 1.75em
+
+  .slide-content
+    &:before
+      z-index: -10
+      position: absolute
+      content: ''
+      width: 100%
+      height: 100%
+      background: url('https://whoknowsaguy.fitness/wp-content/uploads/2016/08/The-Panic-Attack-for-Beachbody-Coaches.jpg') 50%
+      background-size: cover
+      filter: grayscale(2) brightness(0.5)
+  
+#splash
+  text-align: center
+  background: repeating-linear-gradient(45deg, $alt-color, $alt-color 10px, lighten($alt-color,3) 10px, lighten($alt-color,3) 20px)
+  p
+    width: 80%
+    margin-left: auto
+    margin-right: auto
+  
+.splash-img
+  width: auto
+  height: 45vh
+  max-height: 500px
+  
 #splash-text
+  margin-top: 3em
   position: relative
-  font-size: 1.2em
+  font-size: 1.5em
   color: $bg-light-color
 
   #intro 
     position: absolute
-    top: -.75em
-    margin-left: -3em
+    top: -.95em
+    margin-left: -8.25em
     transform: rotate(-20deg)
 
-  .product-name
-    display: inline-block
+  h1
     margin: 0
     color: $main-color
-
-  p 
-    width: 50%
-    margin-left: auto
-    margin-right: auto
-
-#form
-  margin-top: 2em
-  color: $bg-dark-color
-
-#form input[type=email] 
-  padding: 5px 10px
-  border-radius: 4px
-  &:focus 
-    border-color: $attn-color
   
+#form
+  color: $bg-dark-color
+  
+  h2
+    margin-bottom: 0.25em
+
+  input[type=email]
+    height: 40px
+    padding: 5px 10px
+    margin-right: -6px
+    border-radius: 10px 0 0 10px
+    border: 2px solid gray
+    &:focus 
+      border-color: $attn-color
+    
+  .btn
+    border: 2px solid gray
+    border-left: none
+    border-radius: 0 10px 10px 0
+    height: 40px
+    width: auto
+    padding: 5px
+
 /* Breakdown */
-
-.breakdown-container 
-  position: relative
-  width: 80%
-  max-width: 800px
-  margin: 1em auto
-  display: grid
-  grid-template-rows: 50px 50px
-  grid-template-columns: 100px 1em 1fr
-  grid-template-areas: 'icon . header' 'icon . description'
-
-.breakdown-container .breakdown-icon 
-  grid-area: icon
-  position: relative
-
-.breakdown-container .breakdown-icon img 
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
-  width: 70px
-  height: 70px
-
-.breakdown-container h2
-  grid-area: header
-
-.breakdown-container p 
-  grid-area: description
-  margin-top: .25em
-
-/* Testimonials */
-
-#quotes-container 
+#breakdown
+  @extend .container
+  
+.breakdown-container
   display: flex
+  flex-direction: column
   flex-wrap: wrap
-
+  justify-content: center
+  height: 20%
+  margin-bottom: 16px
+  
+  img
+    height: 100%
+    width: 20%
+    margin-left: 10%
+    
+  h2, p
+    width: 60%
+    margin: 0 7% 0 3%
+    
+  h2
+    margin-bottom: 0.25em
+    
+/* Testimonials */
+#testimonials
+  background: $bg-dark-color
+  color: $bg-light-color
+  
+  .container
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-evenly
+    align-items: stretch
+  
+  h1
+    width: 100%
+    
 .quote 
-  width: 45%
-  margin: 0 2.5% 1em
+  width: 42%
+  margin-bottom: 1em
 
 .quote-text 
   font-style: italic
@@ -265,119 +249,134 @@ ul
   margin-left: 0.2em
   content: '\00201D'
 
-.quote-author 
+.quote-author
   text-align: right
-  margin-top: 0
-  margin-right: 1em
-  
-#testimonials h2
-  text-align: center
-
-#video 
-  display: block
-  margin: 0 auto
-  border: none
   
 /* Pricing */
 
-#pricing-list 
-  padding: 0
+#pricing
+  @extend .container
+
+#pricing-list
   display: flex
-  flex-wrap: wrap
   overflow: hidden
   align-items: stretch
   justify-content: space-around
+  padding-top: 1em
 
 .price-box 
-  width: 25%
-  padding: 2%
-  padding-bottom: 4.5em
+  width: 29%
   background: $alt-color
-  color: white
-  border-radius: 5px
+  color: $bg-light-color
+  border-radius: 8px
   position: relative
-
-.price-box h2, .price-box p 
-  margin: 0
-  text-align: center
-
-.price-box p 
-  margin: 0.5em 0
-
-.price-box .benefit-list
-  padding-left: 1em
-  list-style: disc
-
-.price-box .benefit
-  margin: 0.95em 0
-  font-size: 0.95em
-
-.price-box .btn 
-  position: absolute
-  width: 80%
-  left: 10%
-  bottom: 0.75em
+  padding-bottom: 4em
   
+  h2, p
+    text-align: center
+  
+  h2
+    margin-bottom: 0
+    
+  p
+    margin-top: 0.5em
+    font-size: 1.2em
+
+  .benefit-list
+    margin: 0 1em 0 2em
+    list-style: disc
+
+  .benefit
+    margin: 0.5em 0
+    
+  .btn 
+    position: absolute
+    width: 80%
+    left: 10%
+    bottom: 0.75em
+
 #assurance
-  margin-top: 3em
+  margin-top: 2em
   text-align: center
   color: $bg-dark-color
   
 /* Footer */
 footer
-  +center-max-width
-  padding-top: 15px
+  font-size: 0.75em
+  background: $bg-dark-color
+  padding: 5px 0 7px
+  
+  p 
+    margin: 0.5em 16px 0
+  
+#copyright
+  color: $bg-light-color
 
-#copyright 
-  margin: 0.5em 0
-
-#copyright p 
-  margin: 0
-
-#fine-print 
-  font-size: 0.4em
-  padding: 1em 0
-
-#fine-print p 
-  margin: 0
-
-@media only screen and (max-device-width: 600px), only screen and (max-width: 600px) 
-  .expand-menu 
-    display: block
-
-  #nav-bar
-    text-align: center
-
-    &.opened 
-      height: auto
-
-    & #nav-list 
-      flex-wrap: wrap
-      li
-        width: 100%
-        margin: 8px 0
-      #branding
-        margin: 0
-        a 
-          justify-content: center
-
-  .breakdown-container 
-    text-align: center
-    grid-template-rows: 1fr 50px
-    grid-template-columns: 1fr
-    grid-template-areas: 'header' 'description'
-    margin: 0.5em auto
-
-  .breakdown-icon 
+#fine-print
+  font-size: 0.5em
+  
+  p
+    margin-top: 1em
+    
+@media only screen and (max-height: 600px)
+  .splash-img
     display: none
+    
+@media only screen and (max-device-width: 768px)
+  body
+    font-size: 20pt
+  
+  #navbar
+    overflow: hidden
+    transition: max-height 0.5s linear
+    max-height: $navbarHeight
+    &.opened
+      height: auto
+      max-height: $navbarHeight * 10
+    
+  #navbar-list
+    flex-direction: column
+    align-items: center
+    
+  .navbar-link
+    padding: 12px 0 6px
+    
+  #branding
+    font-size: 18pt
+    margin-left: -50px
+    
+  .expand-menu
+    color: $bg-light-color
+    display: block
+    background: none
+    border: none
+    position: absolute
+    right: 10px
+    top: 13px
+    
+  .breakdown-container
+    align-items: center
+    img, h2, p
+      margin-left: 0
+      margin-right: 0
+      text-align: center
+    
+    img
+      height: 100px
 
-  .quote 
-    width: 100%
-
-  .price-box 
-    width: 80%
-    margin: 1.25em auto
-    padding: 3% 4% 3em
-
-  .price-box .benefit-list
-    padding-left: 2em
+  .quote
+    width: 90%
+    
+  .quote-author
+    margin-bottom: 0
+  
+  #pricing-list
+    flex-wrap: wrap
+    
+  .price-box
+    width: 90%
+    margin: 0 5% 2em
+    
+  #assurance
+    margin: 0 auto
+    width: 70%

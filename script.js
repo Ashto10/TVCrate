@@ -1,39 +1,47 @@
 (function(){
   'use strict';
 
-  /** Stores all sticky slide div elements for later manipulation. */
-  const slides = [];
-
   /**
-* Function that allows elements to "slide" over one another. 
-*/
+  * This function overcomes a CSS limitation in order to allow
+  * fixed elements to "slide" over one another.
+  */
   function updateSlides() {
-    $('.slide-content').each(function(i) {
-      let navbarHeight = $('#nav-bar').height();
-      let parent = $(this).parent().position().top;
-      let parentHeight = $(this).parent().height() / 2;
-      let offset;
-
-      let windowTop = $(document).scrollTop();
-
-      if(windowTop <= $('.sticky-slide').parent().position().top) {
-        offset = windowTop - parent + slides[i] + parentHeight + navbarHeight;
-      } else {
-        offset = parentHeight + navbarHeight;
+    let windowTop = $(document).scrollTop();
+    $('.slideshow .slide-container').each(function() {
+      let parent = $(this).position().top;
+      // Check if slide should "stick" once it's reached
+      if ($(this).hasClass('sticky-slide')) {
+        /*
+        * Use the slide's bottom padding to avoid
+        * "snapping" when scrolling quickly
+        */
+        let padding = parseInt($(this).css('padding-bottom'));
+        if (windowTop > $(this).position().top + padding) {
+          return;
+        }
       }
-
-      $(this).css({'top': offset});
+      $(this).children('.slide-content').css({top: windowTop - parent});
     });
   }
 
-  $(function() {
-    // Compile list of all slides on page
-    $('.slide-content').each(function(i) {
-      slides.push($(this).position().top);
+  /**
+  * Find occurances of the product name within the page, and add appropriate
+  * styling and TM text. Completely unnecessary, but it helped avoid needless
+  * repetition during drafting, and something about this just amuses me.
+  */
+  function callMyLawyer() {
+    $('body :not(script)').contents().filter(function() {
+      return this.nodeType === 3;
+    }).replaceWith(function() {
+      return this.nodeValue.replace(/tvcrate/gi, '<span class="product-name">TVCrate</span><sup>&trade;</sup>');
     });
+  }
+
+  $(document).ready(function() {
+    callMyLawyer();
 
     // Handle slide scrolling whenever page changes
-    $(document).on('scroll resize', function() {
+    $(window).on('scroll resize', function() {
       updateSlides();
     });
 
@@ -42,4 +50,5 @@
       $(this).parent().toggleClass('opened');
     });
   });
+
 })();
