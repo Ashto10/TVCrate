@@ -146,7 +146,7 @@ section
   
 .splash-img
   width: auto
-  height: 45vh
+  height: 40vh
   padding-top: 50px
   max-height: 500px
   
@@ -317,14 +317,18 @@ footer
   p
     margin-top: 1em
     
-@media only screen and (max-height: 600px)
+@media only screen and (max-height: 650px)
   .splash-img
     display: none
     
 @media only screen and (max-device-width: 768px)
   body
     font-size: 20pt
+
+  #branding
+    font-size: 18pt
   
+@media only screen and (max-width: 768px)
   #navbar
     overflow: hidden
     transition: max-height 0.5s linear
@@ -332,6 +336,9 @@ footer
     &.opened
       height: auto
       max-height: $navbarHeight * 10
+      
+  #branding
+    width: 100%
     
   #navbar-list
     flex-direction: column
@@ -339,10 +346,6 @@ footer
     
   .navbar-link
     padding: 12px 0 6px
-    
-  #branding
-    font-size: 18pt
-    margin-left: -50px
     
   .expand-menu
     color: $bg-light-color
